@@ -17805,7 +17805,6 @@ MonoBehaviour:
   inputVec: {x: 0, y: 0}
   speed: 5
   isMovable: 1
-  isCollsion: 0
   isAction: 0
 --- !u!1 &1722525422
 GameObject:
@@ -18001,7 +18000,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 9ce14aa7cfd7d724fabf2b8658e5e5b5, type: 3}
   - {fileID: 8300000, guid: 69447a738402a924c93d719832f72d93, type: 3}
   - {fileID: 8300000, guid: 300132867988d214f90593dde7c1d522, type: 3}
-  sfxVolume: 1
+  sfxVolume: 0.5
   channels: 8
 --- !u!1 &1769253445
 GameObject:

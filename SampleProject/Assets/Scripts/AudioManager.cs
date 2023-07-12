@@ -15,7 +15,7 @@ public class AudioManager : MonoBehaviour
 
     [Header("SFX Player")]                  // SFX 플레이어 변수 선언
     public AudioClip[] sfxClips;            // SFX로 사용할 클립 파일들의 배열
-    public float sfxVolume = 1;             // SFX 볼륨
+    public float sfxVolume = 0.5f;          // SFX 볼륨
     AudioSource[] sfxPlayers;               // SFX를 재생할 오디오 컴포넌트들의 배열
     public int channels = 8;                // 채널의 개수
 
