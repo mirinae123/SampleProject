@@ -39,6 +39,7 @@ public class AudioManager : MonoBehaviour
         bgmPlayer.loop = true;                                  // 반복 재생 활성화
         bgmPlayer.volume = bgmVolume;                           // 볼륨 적용
         bgmPlayer.clip = bgmClip;                               // BGM 클립 파일 적용
+        bgmPlayer.Play();
 
         GameObject sfxObject = new GameObject("sfxPlayer");     // SFX 플레이어 오브젝트 생성
         sfxObject.transform.parent = transform;                 // SFX 플레이어를 오디오 시스템의 자식 오브젝트로 둠
