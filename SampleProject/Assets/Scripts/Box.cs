@@ -15,6 +15,6 @@ public class Box : MonoBehaviour
     private void OnTriggerStay2D(Collider2D collision)
     {
         if (collision.gameObject.name == "Player")
-            AudioManager.instance.PlaySFX(AudioManger.Sfx.bridge);
+            AudioManager.instance.PlaySfx(AudioManager.SFX.Bridge);
     }
 }

@@ -17,6 +17,7 @@ public class Player : MonoBehaviour
     void Awake()
     {
         rigid = GetComponent<Rigidbody2D>();
+
         isMovable = true;
         isCollsion = true;
         isAction = false;
@@ -36,12 +37,15 @@ public class Player : MonoBehaviour
             Invoke("Dig", 1);
         }
     }
+
     void FixedUpdate()
     {
         Vector2 nextVec = inputVec.normalized * speed * Time.fixedDeltaTime;
+
         if(isMovable)
             rigid.MovePosition(rigid.position + nextVec);
     }
+
     void Dig()
     {
         if (isCollsion)
