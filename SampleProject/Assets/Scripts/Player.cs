@@ -10,8 +10,9 @@ public class Player : MonoBehaviour
     public float speed;
 
     public bool isMovable;
-    public bool isCollsion;
     public bool isAction;
+
+    private GameObject treasure;
 
 
     void Awake()
@@ -19,8 +20,9 @@ public class Player : MonoBehaviour
         rigid = GetComponent<Rigidbody2D>();
 
         isMovable = true;
-        isCollsion = true;
         isAction = false;
+
+        treasure = null;
     }
 
     // Update is called once per frame
@@ -48,10 +50,10 @@ public class Player : MonoBehaviour
 
     void Dig()
     {
-        if (isCollsion)
+        if (treasure)
         {
             Debug.Log("땅파기 성공");
-            Treasure.instance.Find();
+            treasure.GetComponent<Treasure>().Find();
             AudioManager.instance.PlaySfx(AudioManager.SFX.Success);
         }
         else
@@ -67,7 +69,7 @@ public class Player : MonoBehaviour
         if (col.gameObject.CompareTag("Treasure"))
         {
             Debug.Log("충돌");
-            isCollsion = true;
+            treasure = col.gameObject;
         }
     }
     private void OnTriggerExit2D(Collider2D col)
@@ -75,7 +77,7 @@ public class Player : MonoBehaviour
         if (col.gameObject.CompareTag("Treasure"))
         {
             Debug.Log("충돌 나감");
-            isCollsion = false;
+            treasure = null;
         }
     }
 
