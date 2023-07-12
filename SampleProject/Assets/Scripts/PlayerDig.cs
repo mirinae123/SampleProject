@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class githubTest : MonoBehaviour
+public class PlayerDig : MonoBehaviour
 {
     // Start is called before the first frame update
     void Start()
@@ -13,6 +13,6 @@ public class githubTest : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
     }
+
 }

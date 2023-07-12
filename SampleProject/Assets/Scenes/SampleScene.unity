@@ -135,6 +135,8 @@ GameObject:
   - component: {fileID: 450865751}
   - component: {fileID: 450865750}
   - component: {fileID: 450865749}
+  - component: {fileID: 450865753}
+  - component: {fileID: 450865754}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -245,6 +247,57 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &450865753
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 450865748}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b2edc9f5ebb94f945a8a19725cdaddd7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inputVec: {x: 0, y: 0}
+  speed: 3
+  isMovable: 0
+  isCollsion: 0
+--- !u!58 &450865754
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 450865748}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.6
 --- !u!1 &1337164375
 GameObject:
   m_ObjectHideFlags: 0
@@ -291,7 +344,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bgmClip: {fileID: 0}
   bgmVolume: 1
-  sfxClips: []
+  sfxClips:
+  - {fileID: 8300000, guid: cb7a921cd305f8c4b8e917a9827621f1, type: 3}
+  - {fileID: 8300000, guid: 9ce14aa7cfd7d724fabf2b8658e5e5b5, type: 3}
+  - {fileID: 8300000, guid: 69447a738402a924c93d719832f72d93, type: 3}
   sfxVolume: 1
   channels: 8
 --- !u!1 &2045683644
@@ -309,7 +365,7 @@ GameObject:
   - component: {fileID: 2045683645}
   m_Layer: 0
   m_Name: Treasure
-  m_TagString: Untagged
+  m_TagString: Treasure
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
