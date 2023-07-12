@@ -61,7 +61,8 @@ public class Treasure : MonoBehaviour
         audioS.Stop();
         if (distance < 0.6) // 거리를 통한 충돌 여부
         {
-            //rend.sortingOrder = 2;    // Order in Layer는 2 (배경맵보다 위)
+            rend.sortingOrder = 2;    // Order in Layer는 2 (배경맵보다 위)
+            Destroy(this.gameObject, 2f);
             //AudioManager.instance.PlaySfx(AudioManager.SFX.Win);
         }
         else

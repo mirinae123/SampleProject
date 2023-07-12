@@ -47,10 +47,13 @@ public class Player : MonoBehaviour
         if (isCollsion)
         {
             Debug.Log("¶¥ÆÄ±â ¼º°ø");
+            Treasure.instance.Find();
+            AudioManager.instance.PlaySfx(AudioManager.SFX.Success);
         }
         else
         {
             Debug.Log("¶¥ÆÄ±â ½ÇÆÐ");
+            AudioManager.instance.PlaySfx(AudioManager.SFX.Fail);
         }
         isAction = false;
         isMovable = true;
