@@ -12,9 +12,23 @@ public class Box : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
     }
 
-    private void OnTriggerStay2D(Collider2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.name == "Player")
-            AudioManager.instance.PlaySfx(AudioManager.SFX.Bridge);
+            InvokeRepeating("PlayBridge", 0f, 64f);
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.gameObject.name == "Player")
+        {
+            CancelInvoke("PlayBridge");
+            AudioManager.instance.StopSfx(AudioManager.SFX.Bridge);
+        }
+    }
+
+    private void PlayBridge()
+    {
+        AudioManager.instance.PlaySfx(AudioManager.SFX.Bridge);
     }
 }

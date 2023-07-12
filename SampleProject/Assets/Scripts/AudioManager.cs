@@ -71,4 +71,15 @@ public class AudioManager : MonoBehaviour
         }
         
     }
+
+    public void StopSfx(SFX sfx)
+    {
+        for (int i = 0; i < channels; i++)
+        {
+            if (sfxPlayers[i].isPlaying && sfxPlayers[i].clip == sfxClips[(int)sfx])
+            {
+                sfxPlayers[i].Stop();
+            }
+        }
+    }
 }
