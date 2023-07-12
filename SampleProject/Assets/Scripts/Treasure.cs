@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class Treasure : MonoBehaviour
 {
-    public static Treasure instance;
-
     public Rigidbody2D target;      // Player(Audio Listener)
     public float distance;          // target과의 거리
     public AudioSource audioS;      // 효과음 재생할 오디오 컴포넌트
@@ -14,7 +12,6 @@ public class Treasure : MonoBehaviour
     SpriteRenderer rend;            // Order in Layer 변경하기 위한 변수
     void Awake()
     {
-        instance = this;
         rigid = GetComponent<Rigidbody2D>();
         rend = GetComponent<SpriteRenderer>();
 
@@ -25,7 +22,7 @@ public class Treasure : MonoBehaviour
         audioS.spatialBlend = 1;
         audioS.loop = true;
         audioS.rolloffMode = AudioRolloffMode.Linear;
-        //audioS.Play(); // Debug 용 코드
+        audioS.Play();
     }
 
     void Update()
@@ -42,32 +39,12 @@ public class Treasure : MonoBehaviour
             audioS.pitch = 0.9f;
         else if (distance < 0.6)
             audioS.pitch = 1.1f;
-
-
-    }
-
-
-    public void Play() // Player가 보물 탐지 스킬을 사용하면 Treasure.instance.Play();
-    {
-        audioS.Play();
-    }
-    public void Stop() // Player가 보물 탐지 스킬을 사용중지하면 Treasure.instance.Stop();
-    {
-        audioS.Stop();
     }
 
     public void Find() // 플레이어가 보물 찾기 스킬을 사용하면 Treasure.instance.Find();
     {
         audioS.Stop();
-        if (distance < 0.6) // 거리를 통한 충돌 여부
-        {
-            rend.sortingOrder = 2;    // Order in Layer는 2 (배경맵보다 위)
-            Destroy(this.gameObject, 2f);
-            //AudioManager.instance.PlaySfx(AudioManager.SFX.Win);
-        }
-        else
-        {
-            //AudioManager.instance.PlaySfx(AudioManager.SFX.Lose);
-        }
+        rend.sortingOrder = 2;    // Order in Layer는 2 (배경맵보다 위)
+        Destroy(this.gameObject, 2f);
     }
 }
