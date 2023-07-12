@@ -21,7 +21,7 @@ public class AudioManager : MonoBehaviour
 
     int channelIndex;                       // 채널 사용 알고리즘에 필요한 변수. 필요시 사용
 
-    public enum SFX { };                    // 각 SFX 클립에 대응되는 enum. 필요시 추가
+    public enum SFX {Dig, Fail, Success};                  // 각 SFX 클립에 대응되는 enum. 필요시 추가
 
     // 오브젝트 최초 생성시 실행
     private void Awake()
@@ -54,4 +54,20 @@ public class AudioManager : MonoBehaviour
 
     // 클립 파일은 bgmClip, sfxClips[]에 저장됨
     // 클립을 재생할 오디오 컴포넌트는 bgmPlayer, sfxPlayers[]에 저장됨
+    public void PlaySfx(SFX sfx)
+    {
+        for(int i = 0; i < channels; ++i)
+        {
+            int loopIndex = (i + channelIndex) % channels;
+
+            if (sfxPlayers[loopIndex].isPlaying)  // 이미 재생중이던 효과음이 끊기는것을 방지
+                continue;
+
+            channelIndex = loopIndex;
+            sfxPlayers[loopIndex].clip = sfxClips[(int)sfx];
+            sfxPlayers[loopIndex].Play();
+            break;
+        }
+        
+    }
 }
