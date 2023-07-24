@@ -10,8 +10,8 @@ public class Player : MonoBehaviour
     Rigidbody2D rigid;
     public float speed;
 
-    public static float maxHealth = 100f; // 최대 체력
-    public static float currentHealth = 100f; // 현재 체력
+    public static float maxHealth;      // 최대 체력
+    public static float currentHealth; // 현재 체력
 
     public bool isMovable;
     public bool isAction;
@@ -27,11 +27,16 @@ public class Player : MonoBehaviour
         isAction = false;
 
         treasure = null;
+
+        maxHealth = 100;
+        currentHealth = maxHealth;
     }
 
     // Update is called once per frame
     void Update()
     {
+        currentHealth -= Time.deltaTime;
+
         inputVec.x = Input.GetAxisRaw("Horizontal");
         inputVec.y = Input.GetAxisRaw("Vertical");
 
@@ -59,15 +64,13 @@ public class Player : MonoBehaviour
             Debug.Log("땅파기 성공");
             treasure.GetComponent<Treasure>().Find();
             AudioManager.instance.PlaySfx(AudioManager.SFX.Success);
-            currentHealth += 10; // 성공시 체력 회복
-            Debug.Log(currentHealth);
+            currentHealth += 30; // 성공시 체력 회복
         }
         else
         {
             Debug.Log("땅파기 실패");
             AudioManager.instance.PlaySfx(AudioManager.SFX.Fail);
             currentHealth -= 10; // 실패시 체력 감소
-            Debug.Log(currentHealth);
         }
         isAction = false;
         isMovable = true;
