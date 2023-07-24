@@ -42,6 +42,9 @@ public class UI : MonoBehaviour
 
     void Update()
     {
+        currentHealth = Player.currentHealth;
+        maxHealth = Player.maxHealth;
+
         // 현재 체력과 최대 체력의 비율을 비교한 뒤, 1에 가까우면 체력바의 x를 0, 0에 가까우면 체력바의 x를 -60으로 둔다
         float healthPos = Mathf.Lerp(-60f, 0f, currentHealth / maxHealth);
         healthBarPos.localPosition = new Vector3(healthPos, healthBarPos.localPosition.y, healthBarPos.localPosition.z);

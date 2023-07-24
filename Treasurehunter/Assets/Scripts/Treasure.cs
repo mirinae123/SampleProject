@@ -45,6 +45,7 @@ public class Treasure : MonoBehaviour
     {
         audioS.Stop();
         rend.sortingOrder = 2;    // Order in Layer는 2 (배경맵보다 위)
+        UI.instance.AddTreasurePoint(transform.position);
         Destroy(this.gameObject, 2f);
     }
 }
