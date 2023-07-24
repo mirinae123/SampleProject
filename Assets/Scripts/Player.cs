@@ -52,13 +52,11 @@ public class Player : MonoBehaviour
     {
         if (treasure)
         {
-            Debug.Log("땅파기 성공");
             treasure.GetComponent<Treasure>().Find();
             AudioManager.instance.PlaySfx(AudioManager.SFX.Success);
         }
         else
         {
-            Debug.Log("땅파기 실패");
             AudioManager.instance.PlaySfx(AudioManager.SFX.Fail);
         }
         isAction = false;
@@ -68,7 +66,6 @@ public class Player : MonoBehaviour
     {
         if (col.gameObject.CompareTag("Treasure"))
         {
-            Debug.Log("충돌");
             treasure = col.gameObject;
         }
     }
@@ -76,7 +73,6 @@ public class Player : MonoBehaviour
     {
         if (col.gameObject.CompareTag("Treasure"))
         {
-            Debug.Log("충돌 나감");
             treasure = null;
         }
     }
