@@ -21,6 +21,7 @@ public class Treasure : MonoBehaviour
     {
         rigid = GetComponent<Rigidbody2D>();
         rend = GetComponent<SpriteRenderer>();
+
         rend.sortingOrder = 0;      // 초기 Order in Layer는 0 (배경맵보다 아래)
         Dis();
         audioS.spatialBlend = 1;
@@ -37,7 +38,7 @@ public class Treasure : MonoBehaviour
         if (distance < 6 && distance > 4)
         {
             audioS.pitch = 0.7f;
-            GameObject.Find("Spawner").GetComponent<Spawner>().Check();
+            Spawner.list.Add(this.rigid.position);
         }
             
         else if (distance < 4 && distance > 1.5)
@@ -53,6 +54,7 @@ public class Treasure : MonoBehaviour
         audioS.Stop();
         rend.sortingOrder = 2;    // Order in Layer는 2 (배경맵보다 위)
         Destroy(this.gameObject, 2f);
-        GameObject.Find("Spawner").GetComponent<Spawner>().Miss();
+        Spawner.list.Remove(this.rigid.position);
+        GameObject.Find("Spawner").GetComponent<Spawner>().Spawn();
     }
 }

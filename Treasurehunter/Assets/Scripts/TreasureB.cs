@@ -18,7 +18,7 @@ public class TreasureB : Treasure
         if (distance < 10 && distance > 7)
         {
             audioS.pitch = 0.7f;
-            GameObject.Find("Spawner").GetComponent<Spawner>().Check();
+            Spawner.list.Add(this.rigid.position);
         }
         else if (distance < 7 && distance > 4)
             audioS.pitch = 0.8f;
@@ -29,5 +29,6 @@ public class TreasureB : Treasure
     }
     public override void Find() 
     {
+        base.Find();
     }
 }

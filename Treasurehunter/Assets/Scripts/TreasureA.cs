@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class TreasureA : Treasure
 {
+    
     public override void Dis()
     {
         audioS.maxDistance = 4;
@@ -18,7 +19,7 @@ public class TreasureA : Treasure
         if (distance < 4 && distance > 2.5)
         {
             audioS.pitch = 0.7f;
-            GameObject.Find("Spawner").GetComponent<Spawner>().Check();
+            Spawner.list.Add(this.rigid.position);
         }
         else if (distance < 2.5 && distance > 1.2)
             audioS.pitch = 0.8f;
@@ -29,5 +30,6 @@ public class TreasureA : Treasure
     }
     public override void Find()
     {
+        base.Find();
     }
 }
