@@ -59,11 +59,14 @@ public class Player : MonoBehaviour
             Debug.Log("땅파기 성공");
             treasure.GetComponent<Treasure>().Find();
             AudioManager.instance.PlaySfx(AudioManager.SFX.Success);
+
+            UI.instance.currentHealth += 30; // 보물 발견시 체력 회복
         }
         else
         {
             Debug.Log("땅파기 실패");
             AudioManager.instance.PlaySfx(AudioManager.SFX.Fail);
+            UI.instance.currentHealth -= 10; // 실패하면 체력 감소
         }
         isAction = false;
         isMovable = true;

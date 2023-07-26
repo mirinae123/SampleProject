@@ -43,10 +43,14 @@ public class UI : MonoBehaviour
 
         treasurePoints = new List<TreasurePoint>(); // 보물 위치 리스트 초기화
         score = 0;                          // 플레이어 점수 초기화
+
+        maxHealth = 100;                    // 플레이어 체력 초기화
+        currentHealth = maxHealth;
     }
 
     void Update()
     {
+        currentHealth -= Time.deltaTime;    // 자동 체력감소
         // 현재 체력과 최대 체력의 비율을 비교한 뒤, 1에 가까우면 체력바의 x를 0, 0에 가까우면 체력바의 x를 -60으로 둔다
         float healthPos = Mathf.Lerp(-60f, 0f, currentHealth / maxHealth);
         healthBarPos.localPosition = new Vector3(healthPos, healthBarPos.localPosition.y, healthBarPos.localPosition.z);
