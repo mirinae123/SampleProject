@@ -17,7 +17,8 @@ public class Spawner : MonoBehaviour
     public Rigidbody2D point;    //플레이어의 위치값
 
     public static List<Vector3> list = new List<Vector3>();   //미니맵에 구현할 보물 오브젝트 리스트
-    // Start is called before the first frame update
+                                                              // Start is called before the first frame update
+
     public void Awake()    //초기에 보물이 임의의 위치에서 생성
     {
 
@@ -31,13 +32,12 @@ public class Spawner : MonoBehaviour
             Instantiate(prefabArray[index], position, Quaternion.identity);  //랜덤 생성을 위한 함수
         }
     }
-
     public void Spawn()     //플레이어가 Dig할 경우에 호출할 생성 함수
     {
         Vector3 spawnpoint = point.position;
-        int ran = Random.Range(1,3);
+        int ran = Random.Range(1, 3);
 
-        for(int i = 0; i < ran;i++)
+        for (int i = 0; i < ran; i++)
         {
             int index = Random.Range(0, prefabArray.Length);
             float x = Random.Range(spawnpoint.x - 15f, spawnpoint.x + 15f);
@@ -47,5 +47,5 @@ public class Spawner : MonoBehaviour
             Instantiate(prefabArray[index], treasurepoint, Quaternion.identity);
         }
     }
-   
+
 }
