@@ -54,15 +54,17 @@ public class Treasure : MonoBehaviour
             audioS.pitch = 1.1f;
     }
 
-    private void OnTriggerEnter2D(Collider2D col)
+    public void OnTriggerEnter2D(Collider2D col)
     {
         if (col.gameObject.CompareTag("Player"))
         {
             Debug.Log("충돌a");
             Player.treasure = gameObject;
+            Spawner.list.Add(rigid.position);
+            UI.instance.AddTreasurePoint(transform.position);
         }
     }
-    private void OnTriggerExit2D(Collider2D col)
+    public void OnTriggerExit2D(Collider2D col)
     {
         if (col.gameObject.CompareTag("Player"))
         {
@@ -78,8 +80,7 @@ public class Treasure : MonoBehaviour
         anim.SetTrigger("Open"); // Mi2141 추가
         Player.treasure = null;
         Destroy(this.gameObject, 2f);
-        Spawner.list.Remove(this.rigid.position);
-        UI.instance.AddTreasurePoint(transform.position);
+        Spawner.list.Remove(rigid.position);
         UI.instance.score += 100;
         GameObject.Find("Spawner").GetComponent<Spawner>().Spawn();
     }

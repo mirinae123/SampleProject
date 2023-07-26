@@ -28,6 +28,24 @@ public class TreasureA : Treasure
         else if (distance < 0.6)
             audioS.pitch = 1.1f;
     }
+    private new void OnTriggerEnter2D(Collider2D col)
+    {
+        if (col.gameObject.CompareTag("Player"))
+        {
+            Debug.Log("충돌a");
+            Player.treasure = gameObject;
+            Spawner.list.Add(rigid.position);
+            UI.instance.AddTreasurePoint(transform.position);
+        }
+    }
+    private new void OnTriggerExit2D(Collider2D col)
+    {
+        if (col.gameObject.CompareTag("Player"))
+        {
+            Debug.Log("충돌 나감a");
+            Player.treasure = null;
+        }
+    }
     public override void Find()
     {
         base.Find();
