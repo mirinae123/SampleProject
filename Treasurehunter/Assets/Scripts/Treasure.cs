@@ -12,6 +12,8 @@ public class Treasure : MonoBehaviour
     public Rigidbody2D rigid;              // 물리적으로 거리 계산하기 위한 변수
     public SpriteRenderer rend;            // Order in Layer 변경하기 위한 변수
 
+    public Animator anim; // Mi2141 추가
+
     public virtual void Dis()
     {
         audioS.maxDistance = 6;
@@ -21,6 +23,7 @@ public class Treasure : MonoBehaviour
     {
         rigid = GetComponent<Rigidbody2D>();
         rend = GetComponent<SpriteRenderer>();
+        anim = GetComponent<Animator>(); // Mi2141 추가
 
         rend.sortingOrder = 0;      // 초기 Order in Layer는 0 (배경맵보다 아래)
         Dis();
@@ -53,6 +56,7 @@ public class Treasure : MonoBehaviour
     {
         audioS.Stop();
         rend.sortingOrder = 2;    // Order in Layer는 2 (배경맵보다 위)
+        anim.SetTrigger("Open"); // Mi2141 추가
         Destroy(this.gameObject, 2f);
         Spawner.list.Remove(this.rigid.position);
         GameObject.Find("Spawner").GetComponent<Spawner>().Spawn();

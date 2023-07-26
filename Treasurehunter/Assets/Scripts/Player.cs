@@ -9,6 +9,9 @@ public class Player : MonoBehaviour
     public Rigidbody2D rigid;
     public float speed;
 
+    SpriteRenderer spriter; // Mi2141 추가
+    Animator anim; // Mi2141 추가
+
     public bool isMovable;
     public bool isAction;
 
@@ -16,6 +19,8 @@ public class Player : MonoBehaviour
     void Awake()
     {
         rigid = GetComponent<Rigidbody2D>();
+        spriter = GetComponent<SpriteRenderer>(); // Mi2141 추가
+        anim = GetComponent<Animator>(); // Mi2141 추가
 
         isMovable = true;
         isAction = false;
@@ -79,4 +84,14 @@ public class Player : MonoBehaviour
         }
     }
 
+    // Mi2141 추가
+    void LateUpdate()
+    {
+        anim.SetFloat("Speed", inputVec.magnitude);
+
+        if(inputVec.x != 0)
+        {
+            spriter.flipX = inputVec.x < 0;
+        }
+    }
 }
