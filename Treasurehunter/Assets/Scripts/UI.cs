@@ -38,9 +38,9 @@ public class UI : MonoBehaviour
     public Transform playerPos;             // 플레이어의 Transfrom 컴포넌트에 대한 레퍼런스
     public TMP_Text text;                   // 점수의 TextMeshPro 컴포넌트에 대한 레퍼런스 
 
-    private GameObject minimap;
-    private GameObject status;
-    private GameObject gameOver;
+    private GameObject minimap;             // 미니맵 오브젝트
+    private GameObject status;              // 상태 창 오브젝트
+    private GameObject gameOver;            // 게임오버 창 오브젝트
 
     void Awake()
     {
@@ -52,10 +52,10 @@ public class UI : MonoBehaviour
         maxHealth = 100;                    // 플레이어 체력 초기화
         currentHealth = maxHealth;
 
-        minimap = GameObject.Find("Minimap");
+        minimap = GameObject.Find("Minimap");       // UI 오브젝트 초기화
         status = GameObject.Find("Status");
         gameOver = GameObject.Find("Game Over");
-        gameOver.SetActive(false);
+        gameOver.SetActive(false);                  // 게임오버 창은 최초 실행 시 비활성화 상태
     }
 
     void Update()
@@ -97,13 +97,15 @@ public class UI : MonoBehaviour
         treasurePoints.Add(point);  // 리스트에 보물 위치 정보 추가
     }
 
+    // 게임오버 시 호출하는 함수
     public void GameOver()
     {
-        gameOver.SetActive(true);
-        minimap.SetActive(false);
+        gameOver.SetActive(true);   // 게임오버 창 활성화
+        minimap.SetActive(false);   // 나머지 UI 비활성화
         status.SetActive(false);
     }
 
+    // 게임오버 창에서 버튼 클릭 시 재시작
     public void Restart()
     {
         SceneManager.LoadScene(gameObject.scene.name);
