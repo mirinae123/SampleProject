@@ -38,7 +38,7 @@ public class UI : MonoBehaviour
     public Transform playerPos;             // 플레이어의 Transfrom 컴포넌트에 대한 레퍼런스
     public TMP_Text text;                   // 점수의 TextMeshPro 컴포넌트에 대한 레퍼런스 
 
-    private GameObject minimap;             // 미니맵 오브젝트
+    private GameObject minimap;             // 미니맵 창 오브젝트
     private GameObject status;              // 상태 창 오브젝트
     private GameObject gameOver;            // 게임오버 창 오브젝트
 
