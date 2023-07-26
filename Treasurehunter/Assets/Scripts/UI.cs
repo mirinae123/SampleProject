@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics.Tracing;
 using System.Linq.Expressions;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -22,6 +23,8 @@ public class UI : MonoBehaviour
 
     public GameObject treasurePointPrefab;  // 미니맵에 사용할 보물 아이콘
 
+    public float score;                     // 플레이어의 현재 점수
+
     struct TreasurePoint                    // 발견한 보물 정보를 저장하기 위한 구조체
     {
         public GameObject minimapRef;       // 미니맵에 표시되는 보물 아이콘에 대한 레퍼런스
@@ -32,12 +35,14 @@ public class UI : MonoBehaviour
 
     public RectTransform healthBarPos;      // 체력바의 RectTransform 컴포넌트에 대한 레퍼런스
     public Transform playerPos;             // 플레이어의 Transfrom 컴포넌트에 대한 레퍼런스
+    public TMP_Text text;                   // 점수의 TextMeshPro 컴포넌트에 대한 레퍼런스 
 
     void Awake()
     {
         instance = this;                    // public static 변수 초기화
 
         treasurePoints = new List<TreasurePoint>(); // 보물 위치 리스트 초기화
+        score = 0;                          // 플레이어 점수 초기화
     }
 
     void Update()
@@ -45,6 +50,8 @@ public class UI : MonoBehaviour
         // 현재 체력과 최대 체력의 비율을 비교한 뒤, 1에 가까우면 체력바의 x를 0, 0에 가까우면 체력바의 x를 -60으로 둔다
         float healthPos = Mathf.Lerp(-60f, 0f, currentHealth / maxHealth);
         healthBarPos.localPosition = new Vector3(healthPos, healthBarPos.localPosition.y, healthBarPos.localPosition.z);
+
+        text.text = score.ToString();           // 점수 표기 업데이트
 
         if (treasurePoints.Count == 0) return;  // 보물 위치 정보가 없으면 더 이상 진행하지 않는다
 

@@ -80,6 +80,7 @@ public class Treasure : MonoBehaviour
         Destroy(this.gameObject, 2f);
         Spawner.list.Remove(this.rigid.position);
         UI.instance.AddTreasurePoint(transform.position);
+        UI.instance.score += 100;
         GameObject.Find("Spawner").GetComponent<Spawner>().Spawn();
     }
 }
