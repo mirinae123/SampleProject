@@ -15,7 +15,8 @@ public class Player : MonoBehaviour
     public bool isMovable;
     public bool isAction;
 
-    private GameObject treasure;
+    public static GameObject treasure;
+
     void Awake()
     {
         rigid = GetComponent<Rigidbody2D>();
@@ -66,22 +67,6 @@ public class Player : MonoBehaviour
         }
         isAction = false;
         isMovable = true;
-    }
-    private void OnTriggerEnter2D(Collider2D col)
-    {
-        if (col.gameObject.CompareTag("Treasure"))
-        {
-            Debug.Log("충돌");
-            treasure = col.gameObject;
-        }
-    }
-    private void OnTriggerExit2D(Collider2D col)
-    {
-        if (col.gameObject.CompareTag("Treasure"))
-        {
-            Debug.Log("충돌 나감");
-            treasure = null;
-        }
     }
 
     // Mi2141 추가

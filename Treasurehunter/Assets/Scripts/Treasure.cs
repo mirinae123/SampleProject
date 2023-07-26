@@ -19,6 +19,7 @@ public class Treasure : MonoBehaviour
         audioS.maxDistance = 6;
         audioS.minDistance = 0.6f;
     }
+
     public void Awake()
     {
         rigid = GetComponent<Rigidbody2D>();
@@ -32,6 +33,7 @@ public class Treasure : MonoBehaviour
         audioS.rolloffMode = AudioRolloffMode.Linear;
         audioS.Play();
     }
+
     public virtual void Update()
     {
         Vector3 dirVec = target.position - rigid.position;                      // 벡터의 방향
@@ -52,13 +54,32 @@ public class Treasure : MonoBehaviour
             audioS.pitch = 1.1f;
     }
 
+    private void OnTriggerEnter2D(Collider2D col)
+    {
+        if (col.gameObject.CompareTag("Player"))
+        {
+            Debug.Log("충돌a");
+            Player.treasure = gameObject;
+        }
+    }
+    private void OnTriggerExit2D(Collider2D col)
+    {
+        if (col.gameObject.CompareTag("Player"))
+        {
+            Debug.Log("충돌 나감a");
+            Player.treasure = null;
+        }
+    }
+
     public virtual void Find() // 플레이어가 보물 찾기 스킬을 사용하면 Treasure.instance.Find();
     {
         audioS.Stop();
         rend.sortingOrder = 2;    // Order in Layer는 2 (배경맵보다 위)
         anim.SetTrigger("Open"); // Mi2141 추가
+        Player.treasure = null;
         Destroy(this.gameObject, 2f);
         Spawner.list.Remove(this.rigid.position);
+        UI.instance.AddTreasurePoint(transform.position);
         GameObject.Find("Spawner").GetComponent<Spawner>().Spawn();
     }
 }
