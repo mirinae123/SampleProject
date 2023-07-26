@@ -50,6 +50,7 @@ public class Player : MonoBehaviour
         else if (UI.instance.currentHealth < 0)
         {
             //UI.instance.GameOver();   // 체력 소진시 게임종료 함수 호출
+            //anim.SetTrigger("Dead");  // 체력 소진시 Dead 애니메이션 실행
         }
     }
 
