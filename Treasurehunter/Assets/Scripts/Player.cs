@@ -15,6 +15,8 @@ public class Player : MonoBehaviour
     public bool isMovable;
     public bool isAction;
 
+    public static bool isAlive;
+
     public static GameObject treasure;
 
     void Awake()
@@ -25,6 +27,7 @@ public class Player : MonoBehaviour
 
         isMovable = true;
         isAction = false;
+        isAlive = true;
 
         treasure = null;
     }
@@ -32,6 +35,9 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (!isAlive)
+            return;
+
         inputVec.x = Input.GetAxisRaw("Horizontal");
         inputVec.y = Input.GetAxisRaw("Vertical");
 
@@ -43,18 +49,24 @@ public class Player : MonoBehaviour
             Invoke("Dig", 1);
         }
 
+        // 게임 종료 판정
         if (UI.instance.currentHealth > UI.instance.maxHealth)
         {
             UI.instance.currentHealth = UI.instance.maxHealth;  // 체력 상한선 조정
         } 
         else if (UI.instance.currentHealth < 0)
         {
-            //UI.instance.GameOver();   // 체력 소진시 게임종료 함수 호출
+            UI.instance.GameOver();   // 체력 소진시 게임종료 함수 호출
+            anim.SetTrigger("Dead");  // Dead 애니메이션 호출
+            isAlive = false;
+            AudioManager.instance.StopBgm();
         }
     }
 
     void FixedUpdate()
     {
+        if (!isAlive)
+            return;
         Vector2 nextVec = inputVec.normalized * speed * Time.fixedDeltaTime;
 
         if(isMovable)

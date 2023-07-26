@@ -82,4 +82,9 @@ public class AudioManager : MonoBehaviour
             }
         }
     }
+
+    public void StopBgm()
+    {
+        bgmPlayer.volume = 0;
+    }
 }

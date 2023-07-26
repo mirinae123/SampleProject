@@ -27,6 +27,9 @@ public class TreasureA : Treasure
             audioS.pitch = 0.9f;
         else if (distance < 0.6)
             audioS.pitch = 1.1f;
+
+        if (!Player.isAlive)    // °ÔÀÓ Á¾·á½Ã ¼Ò¸® ¸ØÃã
+            audioS.Stop();
     }
     private new void OnTriggerEnter2D(Collider2D col)
     {
