@@ -4,6 +4,7 @@ using System.Diagnostics.Tracing;
 using System.Linq.Expressions;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 
 // 보물을 발견하면 그 위치 정보를 AddTreasurePoint() 함수를 통해 추가한다.
@@ -37,6 +38,10 @@ public class UI : MonoBehaviour
     public Transform playerPos;             // 플레이어의 Transfrom 컴포넌트에 대한 레퍼런스
     public TMP_Text text;                   // 점수의 TextMeshPro 컴포넌트에 대한 레퍼런스 
 
+    private GameObject minimap;
+    private GameObject status;
+    private GameObject gameOver;
+
     void Awake()
     {
         instance = this;                    // public static 변수 초기화
@@ -46,11 +51,17 @@ public class UI : MonoBehaviour
 
         maxHealth = 100;                    // 플레이어 체력 초기화
         currentHealth = maxHealth;
+
+        minimap = GameObject.Find("Minimap");
+        status = GameObject.Find("Status");
+        gameOver = GameObject.Find("Game Over");
+        gameOver.SetActive(false);
     }
 
     void Update()
     {
         currentHealth -= Time.deltaTime;    // 자동 체력감소
+
         // 현재 체력과 최대 체력의 비율을 비교한 뒤, 1에 가까우면 체력바의 x를 0, 0에 가까우면 체력바의 x를 -60으로 둔다
         float healthPos = Mathf.Lerp(-60f, 0f, currentHealth / maxHealth);
         healthBarPos.localPosition = new Vector3(healthPos, healthBarPos.localPosition.y, healthBarPos.localPosition.z);
@@ -84,7 +95,17 @@ public class UI : MonoBehaviour
         point.position = position;                  // 구조체에 실제 보물 위치 대입
 
         treasurePoints.Add(point);  // 리스트에 보물 위치 정보 추가
+    }
 
+    public void GameOver()
+    {
+        gameOver.SetActive(true);
+        minimap.SetActive(false);
+        status.SetActive(false);
+    }
 
+    public void Restart()
+    {
+        SceneManager.LoadScene(gameObject.scene.name);
     }
 }
