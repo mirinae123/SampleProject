@@ -5,7 +5,7 @@ using System.Linq.Expressions;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UIElements;
+using UnityEngine.UI;
 
 // 보물을 발견하면 그 위치 정보를 AddTreasurePoint() 함수를 통해 추가한다.
 // AddTreasurePoint() 함수는 해당 위치 정보를 가진 보물 아이콘을 미니맵에 추가한다.
@@ -37,6 +37,8 @@ public class UI : MonoBehaviour
     public RectTransform healthBarPos;      // 체력바의 RectTransform 컴포넌트에 대한 레퍼런스
     public Transform playerPos;             // 플레이어의 Transfrom 컴포넌트에 대한 레퍼런스
     public TMP_Text text;                   // 점수의 TextMeshPro 컴포넌트에 대한 레퍼런스 
+    public GameObject weapon;               // 무기 아이콘의 게임 오브젝트에 대한 레퍼런스
+    public Sprite[] weaponIcons;            // 무기 아이콘 스프라이트에 대한 레퍼런스
 
     private GameObject minimap;             // 미니맵 창 오브젝트
     private GameObject status;              // 상태 창 오브젝트
@@ -65,6 +67,9 @@ public class UI : MonoBehaviour
         // 현재 체력과 최대 체력의 비율을 비교한 뒤, 1에 가까우면 체력바의 x를 0, 0에 가까우면 체력바의 x를 -60으로 둔다
         float healthPos = Mathf.Lerp(-60f, 0f, currentHealth / maxHealth);
         healthBarPos.localPosition = new Vector3(healthPos, healthBarPos.localPosition.y, healthBarPos.localPosition.z);
+
+        weapon.GetComponent<Image>().sprite = weaponIcons[(int)AttackSystem.currentWeapon];
+        weapon.GetComponent<Slider>().value = AttackSystem.currentCooldown / AttackSystem.maxCooldown;
 
         text.text = score.ToString();           // 점수 표기 업데이트
 
