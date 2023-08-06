@@ -110,6 +110,11 @@ public class UI : MonoBehaviour
         status.SetActive(false);
     }
 
+    public void Hit()
+    {
+        currentHealth -= 10f;
+    }
+
     // 게임오버 창에서 버튼 클릭 시 재시작
     public void Restart()
     {
