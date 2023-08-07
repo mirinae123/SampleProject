@@ -14,6 +14,8 @@ public class Treasure : MonoBehaviour
 
     public Animator anim; // Mi2141 Ãß°¡
 
+    public GameObject staffPrefab;
+
     public virtual void Dis()
     {
         audioS.maxDistance = 6;
@@ -86,5 +88,18 @@ public class Treasure : MonoBehaviour
         Spawner.list.Remove(rigid.position);
         UI.instance.score += 100;
         GameObject.Find("Spawner").GetComponent<Spawner>().Spawn();
+
+        float staffRand = Random.Range(0f, 1f);
+        Debug.Log(staffRand);
+
+        if (!AttackSystem.hasRanged && staffRand < .85f)
+        {
+            AttackSystem.hasRanged = true;
+
+            GameObject staff = Instantiate(staffPrefab);
+            staff.transform.parent = transform;
+
+            AudioManager.instance.PlaySfx(AudioManager.SFX.Item);
+        }
     }
 }

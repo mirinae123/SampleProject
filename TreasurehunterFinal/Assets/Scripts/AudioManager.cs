@@ -21,7 +21,7 @@ public class AudioManager : MonoBehaviour
 
     int channelIndex;                       // 채널 사용 알고리즘에 필요한 변수. 필요시 사용
 
-    public enum SFX { Dig, Fail, Success, Bridge, Swap };                  // 각 SFX 클립에 대응되는 enum. 필요시 추가
+    public enum SFX { Dig, Fail, Success, Bridge, Swap, Item };                  // 각 SFX 클립에 대응되는 enum. 필요시 추가
 
     // 오브젝트 최초 생성시 실행
     private void Awake()

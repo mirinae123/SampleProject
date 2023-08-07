@@ -11,6 +11,8 @@ public class AttackSystem : MonoBehaviour
     public static float currentCooldown;
     public static float maxCooldown;
 
+    public static bool hasRanged;
+
     void Start()
     {
         currentWeapon = Weapon.Melee;
@@ -28,7 +30,7 @@ public class AttackSystem : MonoBehaviour
             AudioManager.instance.PlaySfx(AudioManager.SFX.Swap);
             ApplyCooldown(.5f);
         }
-        else if (Input.GetKeyDown(KeyCode.Alpha2) && currentWeapon != Weapon.Ranged)
+        else if (Input.GetKeyDown(KeyCode.Alpha2) && currentWeapon != Weapon.Ranged && hasRanged)
         {
             currentWeapon = Weapon.Ranged;
             AudioManager.instance.PlaySfx(AudioManager.SFX.Swap);

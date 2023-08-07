@@ -34,7 +34,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &686118077199398316
 SpriteRenderer:
@@ -103,6 +103,10 @@ MonoBehaviour:
   target: {fileID: 0}
   distance: 0
   audioS: {fileID: 3241668027393051210}
+  rigid: {fileID: 0}
+  rend: {fileID: 0}
+  anim: {fileID: 0}
+  staffPrefab: {fileID: 7312597032166195958, guid: 959407f47edeedd40ad7df5e6f3649d7, type: 3}
 --- !u!82 &3241668027393051210
 AudioSource:
   m_ObjectHideFlags: 0

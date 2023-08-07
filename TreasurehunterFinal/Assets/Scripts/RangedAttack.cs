@@ -24,7 +24,7 @@ public class RangedAttack : MonoBehaviour
         if(Input.GetMouseButtonDown(0))
         {
             CreateProjectile();
-            AudioManager.instance.PlaySfx(AudioManager.SFX.Swap);
+            AudioManager.instance.PlaySfx(AudioManager.SFX.Item);
         }
     }
 
