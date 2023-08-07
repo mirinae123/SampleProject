@@ -8,6 +8,8 @@ TagManager:
   - Ground
   - Area
   - Monster
+  - Bridge
+  - Bullet
   layers:
   - Default
   - TransparentFX
