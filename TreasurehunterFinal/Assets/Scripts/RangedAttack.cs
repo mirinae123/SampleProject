@@ -24,6 +24,7 @@ public class RangedAttack : MonoBehaviour
         if(Input.GetMouseButtonDown(0))
         {
             CreateProjectile();
+            AudioManager.instance.PlaySfx(AudioManager.SFX.Swap);
         }
     }
 
@@ -45,7 +46,7 @@ public class RangedAttack : MonoBehaviour
             GameObject projectile = Instantiate(projPrefab);
             projectile.transform.position = playerPos.position;
             projectile.transform.parent = transform;
-            projectile.GetComponent<RangedProjectile>().lifetime = 2f;
+            projectile.GetComponent<RangedProjectile>().lifetime = 1f;
             pool.Add(projectile);
 
             Vector3 mousePos = new Vector3(Camera.main.ScreenToWorldPoint(Input.mousePosition).x, Camera.main.ScreenToWorldPoint(Input.mousePosition).y, 0);
@@ -58,7 +59,7 @@ public class RangedAttack : MonoBehaviour
         {
             pool[index].SetActive(true);
             pool[index].transform.position = playerPos.position;
-            pool[index].GetComponent<RangedProjectile>().lifetime = 2f;
+            pool[index].GetComponent<RangedProjectile>().lifetime = 1f;
 
             Vector3 mousePos = new Vector3(Camera.main.ScreenToWorldPoint(Input.mousePosition).x, Camera.main.ScreenToWorldPoint(Input.mousePosition).y, 0);
             Vector3 dir = (mousePos - playerPos.position).normalized;
