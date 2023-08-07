@@ -118,6 +118,6 @@ public class UI : MonoBehaviour
     // 게임오버 창에서 버튼 클릭 시 재시작
     public void Restart()
     {
-        SceneManager.LoadScene(gameObject.scene.name);
+        SceneManager.LoadScene("Title Scene");
     }
 }
