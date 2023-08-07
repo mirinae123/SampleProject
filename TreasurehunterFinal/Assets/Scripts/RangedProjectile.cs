@@ -12,4 +12,25 @@ public class RangedProjectile : MonoBehaviour
 
         if (lifetime < 0) gameObject.SetActive(false);
     }
+
+    void Explode()
+    {
+        RaycastHit2D[] hits = Physics2D.CircleCastAll(transform.position, 2f, Vector2.zero, 0f);
+
+        foreach(RaycastHit2D hit in hits)
+        {
+            if (hit.collider.CompareTag("Monster"))
+            {
+                // 몬스터에게 피해 입힘
+            }
+        }
+    }
+
+    void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Monster"))
+        {
+            // 몬스터에게 피해 입힘
+        }
+    }
 }
