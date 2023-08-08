@@ -63,7 +63,6 @@ public class Monster : MonoBehaviour
         if (Live && collision.gameObject.name == "Player")
         {
             GameObject.Find("Player").GetComponent<Player>().TakeDamage(2);
-
         }
         else
             return;
@@ -91,6 +90,8 @@ public class Monster : MonoBehaviour
             rigid.simulated = false;
             render.sortingOrder = 1;
             animator.SetBool("Dead", true);
+            AudioManager.instance.PlaySfx(AudioManager.SFX.Die);
+            UI.instance.score += 20;
             Dead();
         }
     }

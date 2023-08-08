@@ -10,7 +10,10 @@ public class RangedProjectile : MonoBehaviour
     {
         lifetime -= Time.deltaTime;
 
-        if (lifetime < 0) gameObject.SetActive(false);
+        if (lifetime < 0)
+        {
+            Explode();
+        }
     }
 
     void Explode()
@@ -21,18 +24,20 @@ public class RangedProjectile : MonoBehaviour
         {
             if (hit.collider.CompareTag("Monster"))
             {
-                GameObject.Find("Monster").GetComponent<Monster>().TakeDamage(1);
-                // 몬스터에게 피해 입힘
+                hit.collider.gameObject.GetComponent<Monster>().TakeDamage(1);
+                AudioManager.instance.PlaySfx(AudioManager.SFX.Hit);
             }
         }
+
+        gameObject.SetActive(false);
     }
 
     void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Monster"))
         {
-            GameObject.Find("Monster").GetComponent<Monster>().TakeDamage(1);
-            // 몬스터에게 피해 입힘
+            collision.gameObject.GetComponent<Monster>().TakeDamage(1);
+            AudioManager.instance.PlaySfx(AudioManager.SFX.Hit);
         }
     }
 }

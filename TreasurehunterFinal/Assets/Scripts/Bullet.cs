@@ -11,6 +11,14 @@ public class Bullet : MonoBehaviour
     {
         this.damage = damage;
         this.per = per;
+    }
 
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Monster"))
+        {
+            collision.gameObject.GetComponent<Monster>().TakeDamage(1);
+            AudioManager.instance.PlaySfx(AudioManager.SFX.Hit);
+        }
     }
 }

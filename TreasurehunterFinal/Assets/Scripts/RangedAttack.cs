@@ -17,6 +17,8 @@ public class RangedAttack : MonoBehaviour
 
     void Update()
     {
+        if (!Player.isAlive) return;
+
         cooldown -= Time.deltaTime;
 
         if(AttackSystem.currentWeapon != AttackSystem.Weapon.Ranged || cooldown > 0) return;
