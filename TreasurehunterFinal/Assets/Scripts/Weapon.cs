@@ -10,19 +10,32 @@ public class Weapon : MonoBehaviour
     public int count;
     public float speed;
 
+    private GameObject meleeWeapon;
+
     // Update is called once per frame
     void Start()
     {
         Init();
     }
+
     void Update()
     {
-        switch(id){
-            case 0:
-            transform.Rotate(Vector3.forward * speed * Time.deltaTime);
-            break;
-            default:
-            break;
+        if (AttackSystem.currentWeapon == AttackSystem.Weapon.Melee)
+        {
+            meleeWeapon.SetActive(true);
+
+            switch (id)
+            {
+                case 0:
+                    transform.Rotate(Vector3.forward * speed * Time.deltaTime);
+                    break;
+                default:
+                    break;
+            }
+        }
+        else
+        {
+            meleeWeapon.SetActive(false);
         }
     }
 
@@ -44,6 +57,8 @@ public class Weapon : MonoBehaviour
             Transform bullet = GameManager.instance.pool.Get(prefabId).transform;
             bullet.parent = transform;
             bullet.GetComponent<Bullet>().Init(damage, -1);
+
+            meleeWeapon = bullet.gameObject;
         }
     }
 }
