@@ -24,18 +24,19 @@ public class Monster : MonoBehaviour
     {
         wait = new WaitForFixedUpdate();
         col = GetComponent<Collider2D>();
-        target = GameObject.Find("Player").GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         rigid = GetComponent<Rigidbody2D>();
-        render = GetComponent<SpriteRenderer>(); 
-        health = maxHealth;
-        Live = true;
-        
+        render = GetComponent<SpriteRenderer>();
     }
     public void OnEnable()
     {
-        
-
+        target = GameObject.Find("Player").GetComponent<Rigidbody2D>();
+        Live = true;
+        col.enabled = true;
+        rigid.simulated = true;
+        render.sortingOrder = 2;
+        animator.SetBool("Dead", false);
+        health = maxHealth;
     }
     public void Init(SpawnStat stat)
     {
@@ -45,31 +46,33 @@ public class Monster : MonoBehaviour
         health = stat.Health;
     }
 
-    private void FixedUpdate()
+    public void FixedUpdate()
     {
-       
-            Vector2 dirVec = target.position - rigid.position;
-            Vector2 nextVec = dirVec.normalized * speed * Time.fixedDeltaTime;
-            rigid.MovePosition(rigid.position + nextVec);
-            rigid.velocity = Vector2.zero;
-        
-    }
+        if (!Live || animator.GetCurrentAnimatorStateInfo(0).IsName("Hit"))
+            return;
 
+        Vector2 dirVec = target.position - rigid.position;
+        Vector2 nextVec = dirVec.normalized * speed * Time.fixedDeltaTime;
+        rigid.MovePosition(rigid.position + nextVec);
+        rigid.velocity = Vector2.zero;
+    }
+    public void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (Live && collision.gameObject.name == "Player")
+        {
+            GameObject.Find("Player").GetComponent<Player>().TakeDamage(2);
+
+        }
+        else
+            return;
+    }
     private void LateUpdate()
     {
         render.flipX = target.position.x < rigid.position.x;
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.CompareTag("Player"))
-        {
-            GetComponent<UI>().Hit();
-        }
-    }
     public void TakeDamage(int damage)
     {
-
         health -= damage;
         if (health > 0)
         {
@@ -94,9 +97,11 @@ public class Monster : MonoBehaviour
         Vector3 direcVec = transform.position - playerpos;
         rigid.AddForce(direcVec.normalized * 2, ForceMode2D.Impulse);
     }
+    
 
     void Dead()
     {
         gameObject.SetActive(false);
     }
 }
+

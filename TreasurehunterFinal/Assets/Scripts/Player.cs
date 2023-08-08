@@ -14,6 +14,7 @@ public class Player : MonoBehaviour
 
     public bool isMovable;
     public bool isAction;
+    public bool isHealth;
 
     public static bool isAlive;
 
@@ -48,31 +49,29 @@ public class Player : MonoBehaviour
             AudioManager.instance.PlaySfx(AudioManager.SFX.Dig);
             Invoke("Dig", 1);
         }
-
         // 게임 종료 판정
         if (UI.instance.currentHealth > UI.instance.maxHealth)
         {
             UI.instance.currentHealth = UI.instance.maxHealth;  // 체력 상한선 조정
-        } 
+        }
         else if (UI.instance.currentHealth < 0)
         {
             UI.instance.GameOver();   // 체력 소진시 게임종료 함수 호출
             anim.SetTrigger("Dead");  // Dead 애니메이션 호출
             isAlive = false;
             AudioManager.instance.StopBgm();
+
         }
     }
-
     void FixedUpdate()
     {
         if (!isAlive)
             return;
         Vector2 nextVec = inputVec.normalized * speed * Time.fixedDeltaTime;
 
-        if(isMovable)
+        if (isMovable)
             rigid.MovePosition(rigid.position + nextVec);
     }
-
     void Dig()
     {
         if (treasure)
@@ -93,14 +92,50 @@ public class Player : MonoBehaviour
         isMovable = true;
     }
 
+    public void TakeDamage(int damage)
+    {
+        isHealth = false;
+
+        if(!isHealth)
+        {
+            UI.instance.currentHealth -= damage;
+            Debug.Log("Ouch!");
+            OnDamaged();
+        }
+        
+    }
+    public void OnDamaged()
+    {
+        gameObject.layer = 11;
+        StartCoroutine(Damaged());
+        StartCoroutine(Change());
+    }
+
+    IEnumerator Damaged()
+    {
+        while(!isHealth)
+        {
+            yield return new WaitForSeconds(0.1f);
+            spriter.color = new Color(1,1,1,0.4f);
+            yield return new WaitForSeconds(0.1f);
+            spriter.color = new Color(1, 1, 1, 1);
+        }
+    }
+    IEnumerator Change()
+    {
+        yield return new WaitForSeconds(1.5f);
+        gameObject.layer = 6;
+        isHealth = true;
+    }
     // Mi2141 추가
     void LateUpdate()
     {
         anim.SetFloat("Speed", inputVec.magnitude);
 
-        if(inputVec.x != 0)
+        if (inputVec.x != 0)
         {
             spriter.flipX = inputVec.x < 0;
         }
     }
 }
+

@@ -21,6 +21,7 @@ public class RangedProjectile : MonoBehaviour
         {
             if (hit.collider.CompareTag("Monster"))
             {
+                GameObject.Find("Monster").GetComponent<Monster>().TakeDamage(1);
                 // 몬스터에게 피해 입힘
             }
         }
@@ -30,6 +31,7 @@ public class RangedProjectile : MonoBehaviour
     {
         if (collision.CompareTag("Monster"))
         {
+            GameObject.Find("Monster").GetComponent<Monster>().TakeDamage(1);
             // 몬스터에게 피해 입힘
         }
     }
