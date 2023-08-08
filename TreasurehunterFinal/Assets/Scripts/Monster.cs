@@ -13,6 +13,8 @@ public class Monster : MonoBehaviour
 
     public RuntimeAnimatorController[] anime;
 
+    public GameObject hudDamageText; // 데미지 표시할 오브젝트
+
     bool Live;
     Rigidbody2D rigid;
     Collider2D col;
@@ -74,6 +76,9 @@ public class Monster : MonoBehaviour
     public void TakeDamage(int damage)
     {
         health -= damage;
+        GameObject hudText = Instantiate(hudDamageText);    // 데미지 표시할 오브젝트 복제
+        hudText.transform.position = transform.position;
+        hudText.GetComponent<DisplayDamage>().damage = damage;
         if (health > 0)
         {
             animator.SetTrigger("Hit");

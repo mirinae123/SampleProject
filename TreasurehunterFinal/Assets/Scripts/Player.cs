@@ -19,6 +19,8 @@ public class Player : MonoBehaviour
     public static bool isAlive;
 
     public static GameObject treasure;
+    public GameObject hudDamageText;    // 데미지 표시할 오브젝트
+    public Transform hudPos;            // 데미지 표시할 위치
 
     void Awake()
     {
@@ -31,6 +33,8 @@ public class Player : MonoBehaviour
         isAlive = true;
 
         treasure = null;
+
+        //hudPos.transform.position = transform.position; // 데미지 표기 위치 초기화
     }
 
     // Update is called once per frame
@@ -98,8 +102,10 @@ public class Player : MonoBehaviour
 
         if(!isHealth)
         {
+            GameObject hudText = Instantiate(hudDamageText);    // 데미지를 여러번 받을 수 있으므로 복제
+            hudText.transform.position = transform.position;
+            hudText.GetComponent<DisplayDamage>().damage = damage;
             UI.instance.currentHealth -= damage;
-            Debug.Log("Ouch!");
             OnDamaged();
         }
         
