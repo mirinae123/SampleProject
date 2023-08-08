@@ -37,6 +37,8 @@ public class UI : MonoBehaviour
     public RectTransform healthBarPos;      // 체력바의 RectTransform 컴포넌트에 대한 레퍼런스
     public Transform playerPos;             // 플레이어의 Transfrom 컴포넌트에 대한 레퍼런스
     public TMP_Text text;                   // 점수의 TextMeshPro 컴포넌트에 대한 레퍼런스 
+    public TMP_Text result;                 
+    public TMP_Text best;                   
     public GameObject weapon;               // 무기 아이콘의 게임 오브젝트에 대한 레퍼런스
     public Sprite[] weaponIcons;            // 무기 아이콘 스프라이트에 대한 레퍼런스
 
@@ -105,9 +107,13 @@ public class UI : MonoBehaviour
     // 게임오버 시 호출하는 함수
     public void GameOver()
     {
+        
         gameOver.SetActive(true);   // 게임오버 창 활성화
         minimap.SetActive(false);   // 나머지 UI 비활성화
         status.SetActive(false);
+        Save();
+        result.text = score.ToString();
+        best.text = PlayerPrefs.GetFloat("BestScore").ToString();
     }
 
     public void Hit()
@@ -119,5 +125,26 @@ public class UI : MonoBehaviour
     public void Restart()
     {
         SceneManager.LoadScene("Title Scene");
+    }
+
+    public void Save()
+    {
+        if(score < PlayerPrefs.GetFloat("BestScore"))
+        {
+            if(score < PlayerPrefs.GetFloat("SecondScore"))
+            {
+                if (score < PlayerPrefs.GetFloat("ThirdScore"))
+                    return;
+                PlayerPrefs.SetFloat("ThirdScore", score);
+                return;
+            }
+            PlayerPrefs.SetFloat("ThirdScore", PlayerPrefs.GetFloat("SecondScore"));
+            PlayerPrefs.SetFloat("SecondScore", score);
+            return;
+        }
+        if (score == PlayerPrefs.GetFloat("BestScore")) return;
+        PlayerPrefs.SetFloat("ThirdScore", PlayerPrefs.GetFloat("SecondScore"));
+        PlayerPrefs.SetFloat("SecondScore", PlayerPrefs.GetFloat("BestScore"));
+        PlayerPrefs.SetFloat("BestScore", score);
     }
 }
