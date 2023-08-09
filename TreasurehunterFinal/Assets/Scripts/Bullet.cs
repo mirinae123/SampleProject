@@ -17,7 +17,7 @@ public class Bullet : MonoBehaviour
     {
         if (collision.CompareTag("Monster"))
         {
-            collision.gameObject.GetComponent<Monster>().TakeDamage(1);
+            collision.gameObject.GetComponent<Monster>().TakeDamage(3);
             AudioManager.instance.PlaySfx(AudioManager.SFX.Hit);
         }
     }

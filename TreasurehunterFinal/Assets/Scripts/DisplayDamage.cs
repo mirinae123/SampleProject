@@ -31,12 +31,6 @@ public class DisplayDamage : MonoBehaviour
         Invoke("DestroyObject", destroyTime);
     }
 
-    public static void Display(Vector3 position, int damage)
-    {
-        //text.text = damage.ToString();
-        //transform.position = position;
-        //Invoke("DestroyObject", destroyTime);   // 일정 시간 후 텍스트 파괴
-    }
 
     private void DestroyObject()
     {

@@ -20,7 +20,6 @@ public class Player : MonoBehaviour
 
     public static GameObject treasure;
     public GameObject hudDamageText;    // 데미지 표시할 오브젝트
-    public Transform hudPos;            // 데미지 표시할 위치
 
     void Awake()
     {
@@ -33,8 +32,6 @@ public class Player : MonoBehaviour
         isAlive = true;
 
         treasure = null;
-
-        //hudPos.transform.position = transform.position; // 데미지 표기 위치 초기화
     }
 
     // Update is called once per frame
